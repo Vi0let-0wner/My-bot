@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { Client, Intents, Collection } = require('discord.js');
-
-const prefix = '!'; // Define your command prefix here
+const keep_alive = require('./keep_alive.js')
+const prefix = '!'; 
 
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
