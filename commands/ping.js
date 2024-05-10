@@ -1,11 +1,8 @@
 module.exports = {
-    data: {
-        name: 'ping',
-        description: 'Ping!',
-    },
-    execute: (message, args) => {
-        message.channel.send('Pinging...').then(sent => {
-            sent.edit(`My! Latency is ${sent.createdTimestamp - message.createdTimestamp}ms.`);
-        });
-    },
+	data: new SlashCommandBuilder()
+		.setName('ping')
+		.setDescription('Replies with Pong!'),
+	async execute(interaction) {
+		await interaction.reply('Pong!');
+	},
 };
