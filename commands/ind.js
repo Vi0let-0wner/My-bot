@@ -1,8 +1,10 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'ind',
-    description: 'Introduce the bot and gather user information',
+    data: {
+        name: 'ind',
+        description: 'Introduce the bot and gather user information',
+    },
     async execute(message, args) {
         try {
             const formFields = ['Name (Nickname)', 'Age', 'Gender', 'Status'];
