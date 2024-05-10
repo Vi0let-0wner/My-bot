@@ -9,6 +9,6 @@ const client = new Client({
 });
 
 client.once('ready', () => {
-    console.log('Vi0let sl6ve is ready!');
-
-client.login(process.env.token);
+    console.log('Vi0let sl6ve is ready!')
+})
+client.login(process.env.token)
