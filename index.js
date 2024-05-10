@@ -29,10 +29,10 @@ client.once('ready', () => {
 
     // Define your application commands
     const commands = [];
-    for (const file of commandFiles) {
-        const command = require(file);
-        commands.push(command.data.toJSON());
-    }
+for (const file of commandFiles) {
+    const command = require(file);
+    commands.push(command.data);
+}
 
     // Register your application commands with Discord
     (async () => {
