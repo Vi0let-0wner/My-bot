@@ -1,7 +1,10 @@
 const fs = require('fs');
 const { Client, Intents, Collection } = require('discord.js');
-const keep_alive = require('./keep_alive.js')
-const prefix = '!'; 
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
+const keep_alive = require('./keep_alive.js');
+
+const prefix = '!';
 
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -17,6 +20,35 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
     console.log('Vi0let sl6ve is ready!');
+    
+    // Define the token for your bot
+    const token = process.env.token;
+
+    // Create a new REST client
+    const rest = new REST({ version: '9' }).setToken(token);
+
+    // Define your application commands
+    const commands = [];
+    for (const file of commandFiles) {
+        const command = require(file);
+        commands.push(command.data.toJSON());
+    }
+
+    // Register your application commands with Discord
+    (async () => {
+        try {
+            console.log('Started refreshing application (/) commands.');
+
+            await rest.put(
+                Routes.applicationGuildCommands(client.user.id, '899919348599238686'),
+                { body: commands },
+            );
+
+            console.log('Successfully reloaded application (/) commands.');
+        } catch (error) {
+            console.error(error);
+        }
+    })();
 });
 
 client.on('messageCreate', async message => {
