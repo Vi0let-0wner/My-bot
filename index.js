@@ -1,14 +1,27 @@
-const fs = require('fs');
-const { Client, Intents, Collection } = require('discord.js');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-const keep_alive = require('./keep_alive.js');
+require('dotenv').config();
+const { Client, IntentsBitField } = require('discord.js');
 
 const client = new Client({
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildMembers,
+    IntentsBitField.Flags.GuildMessages,
+    IntentsBitField.Flags.MessageContent,
+  ],
 });
 
-client.once('ready', () => {
-    console.log('Vi0let sl6ve is ready!')
-})
-client.login(process.env.token)
+client.on('ready', (c) => {
+  console.log(`✅ ${c.user.tag} is online.`);
+});
+
+client.on('messageCreate', (message) => {
+  if (message.author.bot) {
+    return;
+  }
+
+  if (message.content === 'hello') {
+    message.reply('hello');
+  }
+});
+
+client.login(process.env.TOKEN);
